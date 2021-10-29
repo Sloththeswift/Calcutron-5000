@@ -8,8 +8,15 @@ namespace Calcutron_5000
         static List<string> calclist = new List<string>();
         static string calcutron = "Welcome to Calcutron 5000";
         static string line = "--------------------------\n";
+        static string name = "";
+        static void Main(string[] args)
+        {
 
+            calculator();
 
+        }
+        
+        //The master function
         static void calculator()
         {
 
@@ -18,19 +25,57 @@ namespace Calcutron_5000
 
             while (calculating)
             {
+                
 
                 double num1 = 0;
                 double num2 = 0;
 
-                Console.Write("Enter your first number: ");
-                num1 = Convert.ToDouble(Console.ReadLine());
-
-
-                Console.Write("Enter your second number: ");
-                num2 = Convert.ToDouble(Console.ReadLine());
 
                 
+                header();
+                // Verifies number 1 for calculator
+                while (true)
+                {
+                    
+
+                    Console.Write("Enter your first number: ");
+                    if (double.TryParse(Console.ReadLine(), out num1)) 
+                    {
+                        //number 1 is verified
+                        break;
+                    }
+                    else 
+                    {
+                        header();
+                        Console.WriteLine("Number not valid");
+                    }
+
+                }
+                header();
+                // Verifies number 2 for calculator
+                while (true)
+                {
+                    
+
+                    Console.Write("Enter your second number: ");
+                    if (double.TryParse(Console.ReadLine(), out num2))
+                    {
+                        //number 2 is verified
+                        break;
+                    }
+                    else
+                    {
+                        header();
+                        Console.WriteLine("Number not valid");
+                    }
+
+                }
+
                 
+
+
+                header();
+                Console.WriteLine($"First number: {num1} Second number: {num2}");
                 Console.WriteLine("\n");
                 Console.WriteLine("+  Additate: ");
                 Console.WriteLine("-  Subtractiate: ");
@@ -40,7 +85,7 @@ namespace Calcutron_5000
                 Console.Write("What's your targeted operator?: ");
                 
 
-
+               
 
                 switch (Console.ReadLine())
                 {
@@ -80,6 +125,16 @@ namespace Calcutron_5000
 
                 }
 
+                calculating = Menu();
+            }
+            Console.ReadLine();
+
+        }
+
+        static bool Menu()
+        {
+            while (true)
+            {
                 Console.WriteLine("How will you proceed?");
                 Console.WriteLine("a = new mathulation");
                 Console.WriteLine("b = check previous mathulation");
@@ -88,80 +143,69 @@ namespace Calcutron_5000
 
                 if (choice == "a")
                 {
-                    Console.Clear();
-                    calculator();
+
+
+
+                    return true;
                 }
+
                 else if (choice == "b")
                 {
-                    Console.Clear();
+                    header();
+                    int nrCalc = calclist.Count;
+                    Console.WriteLine($"{name} has made {nrCalc} calculations."); //Shows number of calculations with text.
                     foreach (string pastCal in calclist)
                     {
                         Console.WriteLine(pastCal);
                     }
+                    Console.WriteLine();
+                    Console.WriteLine(line);
+                    
 
                 }
                 else if (choice == "c")
                 {
                     Console.Clear();
                     Console.WriteLine("You're sufficiently calculated. Good bye.");
-                    calculating = (false);
+                    return false;
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("You did not comply, Calcutron terminated.");
-                    calculating = (false);
+                    return false;
 
                 }
-            }
-            Console.ReadLine();
 
+            }
         }
 
 
-
-
-
-
-
-
-        static void Main(string[] args)
-
+        //Displays name of user and name of calculator
+        static void header()
         {
-            Console.WriteLine(calcutron);
-            Console.WriteLine(line);
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(calcutron);
+                Console.WriteLine(line);
 
 
-
-
-
-
-            string name = "";
-
-
-
-            Console.Write("Type the name you're assigned: ");
-            name = Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine(calcutron);
-            Console.WriteLine(line);
-            Console.WriteLine($"Confirmed ID: {name}");
-            Console.WriteLine(line);
-
-
-
-            calculator();
-
-
-
-
-
-
-
-
-
+                if (name.Length == 0)
+                {
+                    Console.Write("Type the name you're assigned: ");
+                    name = Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine($"Confirmed ID: {name}");
+                    Console.WriteLine(line);
+                    break;
+                }
+            }
 
         }
 
     }
+
 }
